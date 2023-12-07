@@ -9,8 +9,8 @@ class Chain:
     name: str
     chain_id: int
     coin_symbol: str
-    explorer: str
     rpc: str
+    explorer: str | None = None
     okx_chain_name: str | None = None
     okx_withdrawal_fee: str | None = None
     orbiter_id: str | None = None

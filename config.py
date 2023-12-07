@@ -13,6 +13,8 @@ ACTION_DELAY_RANGE = [60, 60]
 GAS_THRESHOLD = 50
 # Диапазон для задержки между проверками газа
 GAS_DELAY_RANGE = [10, 10]
+# Выводить ли с биржи
+WALLETS_PREDEPOSITED = True
 
 """
 Настройка прокси

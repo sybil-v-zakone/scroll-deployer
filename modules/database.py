@@ -5,7 +5,7 @@ import sys
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
-from config import USE_MOBILE_PROXY
+from config import USE_MOBILE_PROXY, WALLETS_PREDEPOSITED
 from constants import DATABASE_FILE_PATH, PRIVATE_KEYS_FILE_PATH, PROXIES_FILE_PATH
 from core.client import Client
 from logger import logger
@@ -28,7 +28,10 @@ class Database:
 
         for pk, proxy in itertools.zip_longest(private_keys, proxies, fillvalue=None):
             try:
-                wallet = Wallet(account=Client(private_key=pk, proxy=proxy))
+                wallet = Wallet(
+                    account=Client(private_key=pk, proxy=proxy),
+                    withdrawn_from_okx=WALLETS_PREDEPOSITED,
+                )
             except TypeError:
                 logger.error(
                     f"Amount of proxies is greater than amount of private keys. Proxies count: `{len(proxies)}`. Private keys count: `{len(private_keys)}`"
