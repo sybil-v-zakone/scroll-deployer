@@ -29,12 +29,15 @@ class Deployer:
         while not db.is_empty():
             wallet, index = db.get_random_wallet()
             scroll_client = Client(private_key=wallet.private_key, proxy=wallet.proxy)
+            arbitrum_client = Client(
+                private_key=wallet.private_key, proxy=wallet.proxy, chain=ARBITRUM
+            )
             if USE_MOBILE_PROXY:
                 await scroll_client.change_ip()
             logger.info(f"Working with wallet {scroll_client}")
             if not wallet.withdrawn_from_okx:
                 okx = Okx(
-                    client=scroll_client,
+                    client=arbitrum_client,
                     api_key=OKX_API_KEY,
                     api_secret=OKX_API_SECRET,
                     password=OKX_API_PASSWORD,
@@ -47,9 +50,6 @@ class Deployer:
                 await sleep(delay_range=ACTION_DELAY_RANGE, send_message=False)
                 continue
             elif not wallet.bridged_to_scroll:
-                arbitrum_client = Client(
-                    private_key=wallet.private_key, proxy=wallet.proxy, chain=ARBITRUM
-                )
                 orbiter = Orbiter(
                     src_chain_client=arbitrum_client, dst_chain_client=scroll_client
                 )

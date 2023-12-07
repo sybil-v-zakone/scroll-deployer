@@ -111,7 +111,7 @@ class Client:
             await sleep(
                 delay_range=checkup_sleep_time_range,
                 send_message=False,
-                enable_pr_bar=False,
+                pr_bar=False,
             )
         logger.error(f"Funds not received on {self.chain.name}")
         return False
