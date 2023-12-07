@@ -9,6 +9,7 @@ from config import (
     OKX_WITHDRAW_AMOUNT_RANGE,
     ORBITER_BRIDGE_AMOUNT_RANGE,
     USE_CUSTOM_CONTRACT,
+    USE_MOBILE_PROXY,
 )
 from constants import DEPLOYER_ABI_FILE_PATH
 from core.chain import ARBITRUM, SCROLL
@@ -28,7 +29,8 @@ class Deployer:
         while not db.is_empty():
             wallet, index = db.get_random_wallet()
             scroll_client = Client(private_key=wallet.private_key, proxy=wallet.proxy)
-            await scroll_client.change_ip()
+            if USE_MOBILE_PROXY:
+                await scroll_client.change_ip()
             logger.info(f"Working with wallet {scroll_client}")
             if not wallet.withdrawn_from_okx:
                 okx = Okx(
