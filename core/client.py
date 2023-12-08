@@ -103,7 +103,7 @@ class Client:
 
         while attempts:
             final_balance = await self.get_native_balance(chain=self.chain)
-            if final_balance >= initial_balance:
+            if final_balance > initial_balance:
                 logger.info(f"Funds on {self.chain.name} received")
                 return True
             if attempts is not True:
@@ -240,18 +240,22 @@ class Client:
         logger.info(f"[Deployer] Deploying contract from {self}")
         tx_params = await self._get_tx_params()
         contract = self.w3.eth.contract(abi=abi, bytecode=bytecode)
-        transaction = await contract.constructor().build_transaction(
-            transaction=tx_params
-        )
-        signed_tx = self.w3.eth.account.sign_transaction(
-            transaction_dict=transaction, private_key=self.private_key
-        )
-        tx_hash = await self.w3.eth.send_raw_transaction(
-            transaction=signed_tx.rawTransaction
-        )
-        if tx_hash:
-            return await self.verify_tx(tx_hash=tx_hash)
-        return False
+        try:
+            transaction = await contract.constructor().build_transaction(
+                transaction=tx_params
+            )
+            signed_tx = self.w3.eth.account.sign_transaction(
+                transaction_dict=transaction, private_key=self.private_key
+            )
+            tx_hash = await self.w3.eth.send_raw_transaction(
+                transaction=signed_tx.rawTransaction
+            )
+            if tx_hash:
+                return await self.verify_tx(tx_hash=tx_hash)
+            return False
+        except Exception as e:
+            logger.error(f"[Deployer] Couldn't deploy contract from {self}: {e}")
+            return False
 
     @retry(tries=REQUEST_MAX_RETRIES)
     async def change_ip(self):
@@ -263,3 +267,7 @@ class Client:
                 else:
                     logger.warning(f"Couldn't change ip address")
                     return False
+
+
+# 0.013748800000009019
+# 0.011200000000009019
