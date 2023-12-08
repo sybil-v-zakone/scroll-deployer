@@ -267,7 +267,3 @@ class Client:
                 else:
                     logger.warning(f"Couldn't change ip address")
                     return False
-
-
-# 0.013748800000009019
-# 0.011200000000009019
