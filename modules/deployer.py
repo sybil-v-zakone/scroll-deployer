@@ -53,7 +53,7 @@ class Deployer:
                 orbiter = Orbiter(
                     src_chain_client=arbitrum_client, dst_chain_client=scroll_client
                 )
-                amount = random.uniform(*ORBITER_BRIDGE_AMOUNT_RANGE)
+                amount = round(random.uniform(*ORBITER_BRIDGE_AMOUNT_RANGE), 8)
                 bridged_to_scroll = await orbiter.bridge(
                     amount=amount, dst_chain=SCROLL
                 )

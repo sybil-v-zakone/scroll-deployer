@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from config import MAINNET_RPC_ENDPOINT, SCROLL_RPC_ENDPOINT
+from config import ARBITRUM_RPC_ENDPOINT, MAINNET_RPC_ENDPOINT, SCROLL_RPC_ENDPOINT
 from constants import ARB_NETWORK_FEE, ARB_OKX_CHAIN_NAME
 
 
@@ -30,7 +30,7 @@ ARBITRUM = Chain(
     chain_id=42161,
     coin_symbol="ETH",
     explorer="https://arbiscan.io/",
-    rpc="https://rpc.ankr.com/arbitrum",
+    rpc=ARBITRUM_RPC_ENDPOINT,
     okx_chain_name=ARB_OKX_CHAIN_NAME,
     okx_withdrawal_fee=ARB_NETWORK_FEE,
 )

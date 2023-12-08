@@ -1,8 +1,9 @@
 """
 Настройка сетей
 """
-SCROLL_RPC_ENDPOINT = ""
-MAINNET_RPC_ENDPOINT = ""
+SCROLL_RPC_ENDPOINT = "https://rpc.scroll.io"
+MAINNET_RPC_ENDPOINT = "https://1rpc.io/eth"
+ARBITRUM_RPC_ENDPOINT = "https://arbitrum.llamarpc.com"
 
 """
 Настройка клиента
@@ -40,7 +41,7 @@ OKX_WITHDRAW_AMOUNT_RANGE = [0.002, 0.002]
 """
 # МИНИМАЛЬНОЕ ЧИСЛО ДЛЯ БРИДЖА - 0.001 ETH, КОМИССИЯ ЗА БРИДЖ 0.0012 ETH
 # УЧИТЫВАЙТЕ ЭТО ПРИ УСТАНОВКЕ ЗНАЧЕНИЙ
-ORBITER_BRIDGE_AMOUNT_RANGE = [0.001, 0.0011]
+ORBITER_BRIDGE_AMOUNT_RANGE = [0.012, 0.014]
 
 """
 Настройка деплоера

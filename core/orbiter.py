@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional, Union
 
 from config import GAS_DELAY_RANGE, GAS_THRESHOLD
@@ -65,4 +66,4 @@ class Orbiter:
         chain_code: str,
         trading_fee: Optional[float] = ORBITER_ARB_SCROLL_TRADING_FEE,
     ) -> float:
-        return float("{:.14f}{}".format(amount + trading_fee, chain_code))
+        return Decimal("{:.14f}{}".format(amount + trading_fee, chain_code))
